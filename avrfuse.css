@@ -25,7 +25,7 @@ table {
 	background-color: #ccf;
 }
 #high {
-	background-color: #fcf;
+	background-color: #cfc;
 }
 #ext {
 	background-color: #fcc;
@@ -83,5 +83,5 @@ li a {
 }
 
 li a[href^="m"] { background-color: #9f9; }
-li a:hover { background-color: #9c3; }
-li a[href^="m"]:hover { background-color: #6c6; }
+li a:hover { background-color: #4f4; }
+

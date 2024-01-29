@@ -19,9 +19,19 @@ function calc() {
 			}
 		}
 	}
-	document.getElementById('lowval').innerHTML = evalHex(lowval);
-	document.getElementById('highval').innerHTML = evalHex(highval);
-	document.getElementById('extval').innerHTML = evalHex(extval);
+	if ( document.getElementById('lowval') )
+	    document.getElementById('lowval').innerHTML = evalHex(lowval);
+	if ( document.getElementById('highval') )
+	    document.getElementById('highval').innerHTML = evalHex(highval);
+	if ( document.getElementById('extval') )
+	    document.getElementById('extval').innerHTML = evalHex(extval);
+
+	if ( document.getElementById('lfuse') )
+	    document.getElementById('lfuse').innerHTML = "-U lfuse:w:" + evalHex(lowval) + ":m";
+	if ( document.getElementById('hfuse') )
+	    document.getElementById('hfuse').innerHTML = "-U hfuse:w:" + evalHex(highval) + ":m";
+	if ( document.getElementById('efuse') )
+	    document.getElementById('efuse').innerHTML = "-U efuse:w:" + evalHex(extval) + ":m";
 }
 
 function evalHex(expr) {

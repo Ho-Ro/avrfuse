@@ -17,7 +17,7 @@
 <table border="1">
 	<tr id="low">
 		<td>
-			Clock Source: <select id="CKSEL" size="1" onclick="calc();" onchange="calc();">
+			CKSEL <select id="CKSEL" size="1" onclick="calc();" onchange="calc();">
 				<option value="+0">External Clock Source</option>
 				<optgroup label="External R/C Oscillator:">
 					<option value="+5">0.1-0.9 MHz</option>
@@ -38,7 +38,7 @@
 					<option value="+4">8 MHz</option>
 				</optgroup>
 			</select><br>
-			Start-up Time: <select id="SUT" size="1" onclick="calc();" onchange="calc();">
+			SUT <select id="SUT" size="1" onclick="calc();" onchange="calc();">
 				<optgroup label="External R/C Oscillator">
 					<option value="+0">18 CK (BOD)</option>
 					<option value="+16">18 CK + 4.1 ms (fast)</option>
@@ -68,8 +68,8 @@
 					<option value="+32" selected class="default">6 CK + 65 ms (slow) *</option>
 				</optgroup>
 			</select><br>
-			<input type="checkbox" id="BODEN" value="-64" onclick="calc();"> <label for="BODEN">Enable Brown-out Detector</label><br>
-			<input type="checkbox" id="BODLEVEL" value="-128" onclick="calc();"> <label for="BODLEVEL">High Brown-out Level (4V instead of 2.7V)</label>
+			<input type="checkbox" id="BODEN" value="-64" onclick="calc();"> <label for="BODEN">BODEN - Enable Brown-out Detector</label><br>
+			<input type="checkbox" id="BODLEVEL" value="-128" onclick="calc();"> <label for="BODLEVEL">BODLEVEL - High Brown-out Level (4V instead of 2.7V)</label>
 			<input type="hidden" value="+192">
 		</td>
 		<td>
@@ -79,20 +79,20 @@
 	</tr>
 	<tr id="high">
 		<td>
-			<input type="checkbox" id="BOOTRST" value="-1" onclick="calc();"> <label for="BOOTRST">Set Reset Vector to Boot Block</label><br>
-			Boot Block Size: <select id="BOOTSZ" size="1" onclick="calc();" onchange="calc();">
+			<input type="checkbox" id="BOOTRST" value="-1" onclick="calc();"> <label for="BOOTRST">BOOTRST - Select Reset Vector</label><br>
+			BOOTSZ <select id="BOOTSZ" size="1" onclick="calc();" onchange="calc();">
 				<option value="+0" selected class="default">1024 words / 2048 bytes *</option>
 				<option value="+2">512 words / 1024 bytes</option>
 				<option value="+4">256 words / 512 bytes</option>
 				<option value="+6">128 words / 256 bytes</option>
 			</select><br>
-			<input type="checkbox" id="EESAVE" value="-8" onclick="calc();"> <label for="EESAVE">Preserve EEPROM through Chip Erase</label><br>
+			<input type="checkbox" id="EESAVE" value="-8" onclick="calc();"> <label for="EESAVE">EESAVE - Preserve EEPROM through Chip Erase</label><br>
 			<input type="checkbox" id="CKOPT" value="-16" onclick="calc();"> <label for="CKOPT">Ext. Clock/RC Osc./Low-freq. Crystal: enable internal Capacitors (36 pF)<br>
 			Internal R/C Osc.: leave unchecked!<br>
 			External Crystal: enable full swing (neccessary for >8 MHz)</label><br>
-			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc();"> <label for="SPIEN" class="default dangerous">Enable SPI programming *</label><br>
-			<input type="checkbox" id="WDTON" value="-64" onclick="calc();"> <label for="WDTON">Watchdog Timer always on</label><br>
-			<input type="checkbox" id="RSTDISBL" value="-128" onclick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">Disable external Reset</label>
+			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc();"> <label for="SPIEN" class="default dangerous">SPIEN - Enable SPI programming *</label><br>
+			<input type="checkbox" id="WDTON" value="-64" onclick="calc();"> <label for="WDTON">WDTON - Watchdog Timer Always On</label><br>
+			<input type="checkbox" id="RSTDISBL" value="-128" onclick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">RSTDISBL - External Reset Disable</label>
 			<input type="hidden" id="high8" value="+249">
 		</td>
 		<td>
@@ -104,6 +104,9 @@
 </form>
 
 <p>* = <span onclick="setDefault();">default</span></p>
+
+avrdude fuse options:
+<pre><span id="lfuse"> </span> <span id="hfuse"> </span></pre>
 
 </body>
 </html>
