@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<!-- AVR Fuse Calculator, (C) Arne Rossius, http://www.ebps.de.vu/ -->
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<title>ATtiny25/45/85 Fuse Calculator</title>
+<link rel="stylesheet" type="text/css" href="avrfuse.css">
+<script type="text/javascript" src="avrfuse.js"></script>
+</head>
+
+<body onload="calc();">
+<h1>ATtiny25/45/85 Fuse Calculator</h1>
+
+<form action="">
+<table border="1">
+	<tr id="low">
+		<td>
+			Clock Source: <select id="CKSEL" size="1" onClick="calc();" onChange="calc();">
+				<option value="+0">External Clock Source</option>
+				<option value="+1">PLL Clock (16 MHz)</option>
+				<optgroup label="External Crystal:">
+					<option value="+6">XTAL ~ 32 kHz</option>
+					<option value="+8">XTAL 0.4-0.9 MHz (Ceramic)</option>
+					<option value="+10">XTAL 0.9-3 MHz</option>
+					<option value="+12">XTAL 3-8 MHz</option>
+					<option value="+14">XTAL >8 MHz</option>
+				</optgroup>
+				<optgroup label="Internal R/C Oscillator:">
+					<option value="+4">Int. R/C 128 kHz</option>
+					<option value="+3">Int. R/C 1.6 MHz [Tiny15]</option>
+					<option value="+2" selected class="default">Int. R/C 8 MHz *</option>
+				</optgroup>
+			</select><br>
+			Start-up Time: <select id="SUT" size="1" onClick="calc();" onChange="calc();">
+				<optgroup label="PLL Clock">
+					<option value="+0">PLL: 1k CK + 8 ms (BOD)</option>
+					<option value="+16">PLL: 16k CK + 8 ms (fast)</option>
+					<option value="+32">PLL: 1k CK + 68 ms (slow)</option>
+					<option value="+48">PLL: 16k CK + 68 ms (slow)</option>
+				</optgroup>
+				<optgroup label="Ceramic Oscillator">
+					<option value="+0">Ceramic: 272 CK + 4 ms (fast, not close to max. freq.)</option>
+					<option value="+16">Ceramic: 272 CK + 64 ms (slow, not close to max. freq.)</option>
+					<option value="+32">Ceramic: 1k CK (BOD, stable freq. at start-up)</option>
+					<option value="+48">Ceramic: 1k CK + 4 ms (fast, stable freq. at start-up)</option>
+					<option value="+1">Ceramic: 1k CK + 64 ms (slow, stable freq. at start-up)</option>
+				</optgroup>
+				<optgroup label="Low-Freq. Crystal Oscillator">
+					<option value="+0">LF-XTAL: 1k CK + 4 ms (fast/BOD)</option>
+					<option value="+16">LF-XTAL: 1k CK + 64 ms (slow)</option>
+					<option value="+32">LF-XTAL: 32k CK + 64 ms (stable freq. at start-up)</option>
+				</optgroup>
+				<optgroup label="Crystal Oscillator">
+					<option value="+17">XTAL: 16k CK (BOD)</option>
+					<option value="+33">XTAL: 16k CK + 4 ms (fast)</option>
+					<option value="+49">XTAL: 16k CK + 64 ms (slow)</option>
+				</optgroup>
+				<optgroup label="Int. R/C Osc. / Ext. Clock Source">
+					<option value="+0">Int. R/C / Ext.: 20 CK (BOD)</option>
+					<option value="+16">Int. R/C / Ext.: 20 CK + 4 ms (fast)</option>
+					<option value="+32" selected class="default">Int. R/C / Ext.: 20 CK + 64 ms (slow) *</option>
+					<option value="+0">Int. R/C [Tiny15]: 20 CK + 64 ms</option>
+					<option value="+16">Int. R/C [Tiny15]: 20 CK + 64 ms</option>
+					<option value="+32">Int. R/C [Tiny15]: 20 CK + 4 ms</option>
+					<option value="+48">Int. R/C [Tiny15]: 15 CK</option>
+				</optgroup>
+			</select><br>
+			<input type="checkbox" id="CKOUT" value="-64" onClick="calc();"> <label for="CKOUT">Output clock on CKOUT (PB2)</label><br>
+			<input type="checkbox" id="CKDIV" value="-128" checked class="default" onClick="calc();"> <label for="CKDIV" class="default">Divide clock by 8 *</label>
+			<input type="hidden" value="+192">
+		</td>
+		<td>
+			<h2>Low</h2>
+			<span id="lowval">&nbsp;</span>
+		</td>
+	</tr>
+	<tr id="high">
+		<td>
+			Brown-out Detection: <select id="BODLEVEL" size="1" onClick="calc();" onChange="calc();">
+				<option value="+7" selected class="default">disabled *</option>
+				<option value="+6">1.8 V</option>
+				<option value="+5">2.7 V</option>
+				<option value="+4">4.3 V</option>
+			</select><br>
+			<input type="checkbox" id="EESAVE" value="-8" onClick="calc();"> <label for="EESAVE">Preserve EEPROM through Chip Erase</label><br>
+			<input type="checkbox" id="WDTON" value="-16" onClick="calc();"> <label for="WDTON">Watchdog Timer always on</label><br>
+			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onClick="calc();"> <label for="SPIEN" class="default dangerous">Enable SPI programming *</label><br>
+			<input type="checkbox" id="DWEN" value="-64" onClick="calc();" class="dangerous"> <label for="DWEN" class="dangerous">Enable debugWIRE</label><br>
+			<input type="checkbox" id="RSTDISBL" value="-128" onClick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">Disable external Reset</label>
+			<input type="hidden" value="+248">
+		</td>
+		<td>
+			<h2>High</h2>
+			<span id="highval">&nbsp;</span>
+		</td>
+	</tr>
+	<tr id="ext">
+		<td>
+			<input type="checkbox" id="SELFPRGEN" value="-1" onClick="calc();"> <label for="SELFPRGEN">Enable Self Programming</label>
+			<input type="hidden" value="+255">
+		</td>
+		<td>
+			<h2>Extended</h2>
+			<span id="extval">&nbsp;</span>
+		</td>
+	</tr>
+</table>
+</form>
+
+<p>* = <span onClick="setDefault();">default</span></p>
+
+</body>
+</html>

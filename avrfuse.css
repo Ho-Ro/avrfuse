@@ -1,0 +1,87 @@
+body {
+	margin: .25em;
+	padding: 0;
+	background-color: silver;
+}
+body[onload] {
+	background-color: white;
+}
+h1 {
+	text-align: center;
+	font-size: 1.2em;
+}
+h2 {
+	font-size: .5em;
+	font-weight: bold;
+	text-align: center;
+	margin: 0;
+}
+table {
+	margin: 0 auto;
+	border: none;
+	border-spacing: 5px;
+}
+#low {
+	background-color: #ccf;
+}
+#high {
+	background-color: #fcf;
+}
+#ext {
+	background-color: #fcc;
+}
+td {
+	border: 1px solid black;
+	padding: .5em .5em;
+}
+td + td {
+	font-size: 2em;
+	text-align: center;
+	width: 3em;
+}
+input, select {
+	margin: .25em .25em;
+}
+*[onclick], label {
+	cursor: pointer;
+}
+.default, p {
+/* 	font-weight: bold; */
+	font-style: italic;
+}
+.dangerous {
+	color: red;
+}
+span[onclick] {
+	text-decoration: underline;
+}
+p {
+	text-align: center;
+}
+
+/*********************************** MENU ***********************************/
+
+ul {
+	padding: 0;
+	margin: 0 auto;
+	display: table;
+}
+li {
+	list-style: none;
+	display: table-row;
+	padding: 0;
+	margin: 0;
+}
+li a {
+	border: 1px solid black;
+	display: block;
+	padding: .125em .25em;
+	margin: .125em 0;
+	background-color: #cf6;
+	color: black;
+	text-decoration: none;
+}
+
+li a[href^="m"] { background-color: #9f9; }
+li a:hover { background-color: #9c3; }
+li a[href^="m"]:hover { background-color: #6c6; }

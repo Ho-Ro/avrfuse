@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<!-- AVR Fuse Calculator, (C) Arne Rossius, http://www.ebps.de.vu/ -->
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<title>ATmega162 Fuse Calculator</title>
+<link rel="stylesheet" type="text/css" href="avrfuse.css">
+<script type="text/javascript" src="avrfuse.js"></script>
+</head>
+
+<body onload="calc();">
+<h1>ATmega162 Fuse Calculator</h1>
+
+<form action="">
+<table border="1">
+	<tr id="low">
+		<td>
+			Clock Source: <select id="CKSEL" size="1" onclick="calc()" onchange="calc()">
+				<option value="+0">External Clock Source</option>
+				<optgroup label="External Low-Frequency Crystal:">
+					<option value="+4">XTAL ~32 kHz</option>
+					<option value="+6">XTAL ~32 kHz (internal 10pF caps)</option>
+				</optgroup>
+				<optgroup label="External Crystal/Ceramic:">
+					<option value="+8">XTAL 0.4-0.9 MHz (Ceramic)</option>
+					<option value="+10">XTAL 0.9-3 MHz</option>
+					<option value="+12">XTAL 3-8 MHz</option>
+					<option value="+14">XTAL 8-16 MHz</option>
+				</optgroup>
+				<option value="+2" selected class="default">Internal R/C 8 MHz *</option>
+			</select><br>
+			Start-up Time: <select id="SUT" size="1" onclick="calc()" onchange="calc()">
+				<optgroup label="Ceramic Resonator:">
+					<option value="+0">Ceramic: fast rising power (not close to max. freq.)</option>
+					<option value="+16">Ceramic: slowly rising power (not close to max. freq.)</option>
+					<option value="+32">Ceramic: BOD enabled (stable freq. at start-up)</option>
+					<option value="+48">Ceramic: fast rising power (stable freq. at start-up)</option>
+					<option value="+1">Ceramic: slowly rising power (stable freq. at start-up)</option>
+				</optgroup>
+				<optgroup label="Low-Freq. Crystal Oscillator:">
+					<option value="+0">LF XTAL: 0ms + 1K (fast rising power or BOD enabled)</option>
+					<option value="+16">LF XTAL: 4.1ms + 1K (fast rising power or BOD enabled)</option>
+					<option value="+32">LF XTAL: 65ms + 1K (slowly rising power)</option>
+					<option value="+1">LF XTAL: 0ms + 32K (fast rising power or BOD enabled)</option>
+					<option value="+17">LF XTAL: 4.1ms + 32K (fast rising power or BOD enabled)</option>
+					<option value="+33">LF XTAL: 65ms + 32K (slowly rising power)</option>
+				</optgroup>
+				<optgroup label="Crystal Oscillator:">
+					<option value="+17">XTAL: BOD enabled</option>
+					<option value="+33">XTAL: fast rising power</option>
+					<option value="+49">XTAL: slowly rising power</option>
+				</optgroup>
+				<optgroup label="Internal R/C / External Clock Source">
+					<option value="+0">R/C / Ext.: BOD enabled</option>
+					<option value="+16">R/C / Ext.: fast rising power</option>
+					<option value="+32" selected class="default">R/C / Ext.: slowly rising power *</option>
+				</optgroup>
+			</select><br>
+			<input type="checkbox" id="CKOUT" value="-64" onclick="calc()"> <label for="CKOUT">Output Clock on PB0</label><br>
+			<input type="checkbox" id="CKDIV8" value="-128" onclick="calc()" checked class="default"> <label for="CKDIV8" class="default">Divide Clock by 8 *</label>
+			<input type="hidden" value="+192">
+		</td>
+		<td>
+			<h2>Low</h2>
+			<span id="lowval">&nbsp;</span>
+		</td>
+	</tr>
+	<tr id="high">
+		<td>
+			<input type="checkbox" id="BOOTRST" value="-1" onclick="calc()"> <label for="BOOTRST">Set Reset Vector to Boot Block</label><br>
+			Boot Block Size: <select id="BOOTSZ" size="1" onclick="calc()" onchange="calc()">
+				<option value="+0" selected class="default">1024 words / 2048 bytes *</option>
+				<option value="+2">512 words / 1024 bytes</option>
+				<option value="+4">256 words / 512 bytes</option>
+				<option value="+6">128 words / 256 bytes</option>
+			</select><br>
+			<input type="checkbox" id="EESAVE" value="-8" onclick="calc()"> <label for="EESAVE">Preserve EEPROM through Chip Erase</label><br>
+			<input type="checkbox" id="WDTON" value="-16" onclick="calc()"> <label for="WDTON">Watchdog Timer always on</label><br>
+			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc()"> <label for="SPIEN" class="default dangerous">Enable SPI programming *</label><br>
+			<input type="checkbox" id="JTAGEN" value="-64" checked class="default" onclick="calc()"> <label for="JTAGEN" class="default">Enable JTAG *</label><br>
+			<input type="checkbox" id="OCDEN" value="-128" onclick="calc()"> <label for="OCDEN">Enable On-chip Debug System</label>
+			<input type="hidden" value="+249">
+		</td>
+		<td>
+			<h2>High</h2>
+			<span id="highval">&nbsp;</span>
+		</td>
+	<tr id="ext">
+		<td>
+			Brown-out Detection: <select id="BODLEVEL" size="1" onclick="calc()" onchange="calc()">
+				<option value="+14" selected class="default">disabled *</option>
+				<option value="+12">1.8 V (ATmega162V only)</option>
+				<option value="+6">2.3 V (ATmega162V only)</option>
+				<option value="+10">2.7 V</option>
+				<option value="+8">4.3 V</option>
+			</select><br>
+			<input type="checkbox" id="M161C" value="-16" onclick="calc()"> <label for="M161C">ATmega161 Compatibility Mode</label>
+			<input type="hidden" value="+241">
+		</td>
+		<td>
+			<h2>Extended</h2>
+			<span id="extval">&nbsp;</span>
+		</td>
+	</tr>
+</table>
+</form>
+
+<p>* = <span onclick="setDefault()">default</span></p>
+
+</body>
+</html>

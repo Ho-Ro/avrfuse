@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<!-- AVR Fuse Calculator, (C) Arne Rossius, http://www.ebps.de.vu/ -->
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<title>ATmega8515/8535 Fuse Calculator</title>
+<link rel="stylesheet" type="text/css" href="avrfuse.css">
+<script type="text/javascript" src="avrfuse.js"></script>
+</head>
+
+<body onload="calc();">
+<h1>ATmega8515/8535 Fuse Calculator</h1>
+
+<form action="">
+<table border="1">
+	<tr id="low">
+		<td>
+			Clock Source: <select id="CKSEL" size="1" onclick="calc();" onchange="calc();">
+				<option value="+0">External Clock Source</option>
+				<optgroup label="External R/C Oscillator:">
+					<option value="+5">0.1-0.9 MHz</option>
+					<option value="+6">0.9-3 MHz</option>
+					<option value="+7">3-8 MHz</option>
+					<option value="+8">8-12 MHz</option>
+				</optgroup>
+				<optgroup label="External Crystal:">
+					<option value="+9">~ 32 kHz</option>
+					<option value="+10">0.4-0.9 MHz (Ceramic)</option>
+					<option value="+12">0.9-3 MHz</option>
+					<option value="+14">3-16 MHz</option>
+				</optgroup>
+				<optgroup label="Internal R/C Oscillator:">
+					<option value="+1" selected class="default">1 MHz *</option>
+					<option value="+2">2 MHz</option>
+					<option value="+3">4 MHz</option>
+					<option value="+4">8 MHz</option>
+				</optgroup>
+			</select><br>
+			Start-up Time: <select id="SUT" size="1" onclick="calc();" onchange="calc();">
+				<optgroup label="External R/C Oscillator">
+					<option value="+0">18 CK (BOD)</option>
+					<option value="+16">18 CK + 4.1 ms (fast)</option>
+					<option value="+32">18 CK + 65 ms (slow)</option>
+					<option value="+48">6 CK + 4.1 ms (fast/BOD, not close to max. freq.)</option>
+				</optgroup>
+				<optgroup label="Ceramic Oscillator:">
+					<option value="+0">258 CK + 4.1 ms (fast, not close to max. freq.)</option>
+					<option value="+16">258 CK + 65 ms (slow, not close to max. freq.)</option>
+					<option value="+32">1k CK (BOD, stable freq. at start-up)</option>
+					<option value="+48">1k CK + 4.1 ms (fast, stable freq. at start-up)</option>
+					<option value="+1">1k CK + 65 ms (slow, stable freq. at start-up)</option>
+				</optgroup>
+				<optgroup label="Low-Freq. Crystal Oscillator:">
+					<option value="+0">1k CK + 4.1 ms (fast/BOD)</option>
+					<option value="+16">1k CK + 65 ms (slow)</option>
+					<option value="+32">32k CK + 65 ms (stable freq. at start-up)</option>
+				</optgroup>
+				<optgroup label="Crystal Oscillator:">
+					<option value="+17">16k CK (BOD)</option>
+					<option value="+33">16k CK + 4.1 ms (fast)</option>
+					<option value="+49">16k CK + 65 ms (slow)</option>
+				</optgroup>
+				<optgroup label="Int. R/C Osc. / Ext. Clock Source">
+					<option value="+0">6 CK (BOD)</option>
+					<option value="+16">6 CK + 4.1 ms (fast)</option>
+					<option value="+32" selected class="default">6 CK + 65 ms (slow) *</option>
+				</optgroup>
+			</select><br>
+			<input type="checkbox" id="BODEN" value="-64" onclick="calc();"> <label for="BODEN">Enable Brown-out Detector</label><br>
+			<input type="checkbox" id="BODLEVEL" value="-128" onclick="calc();"> <label for="BODLEVEL">High Brown-out Level (4V instead of 2.7V)</label>
+			<input type="hidden" value="+192">
+		</td>
+		<td>
+			<h2>Low</h2>
+			<span id="lowval">&nbsp;</span>
+		</td>
+	</tr>
+	<tr id="high">
+		<td>
+			<input type="checkbox" id="BOOTRST" value="-1" onclick="calc();"> <label for="BOOTRST">Set Reset Vector to Boot Block</label><br>
+			Boot Block Size: <select id="BOOTSZ" size="1" onclick="calc();" onchange="calc();">
+				<option value="+0" selected class="default">1024 words / 2048 bytes *</option>
+				<option value="+2">512 words / 1024 bytes</option>
+				<option value="+4">256 words / 512 bytes</option>
+				<option value="+6">128 words / 256 bytes</option>
+			</select><br>
+			<input type="checkbox" id="EESAVE" value="-8" onclick="calc();"> <label for="EESAVE">Preserve EEPROM through Chip Erase</label><br>
+			<input type="checkbox" id="CKOPT" value="-16" onclick="calc();"> <label for="CKOPT">Ext. Clock/RC Osc./Low-freq. Crystal: enable internal Capacitors (36 pF)<br>
+			Internal R/C Osc.: leave unchecked!<br>
+			External Crystal: enable full swing (neccessary for >8 MHz)</label><br>
+			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc();"> <label for="SPIEN" class="default dangerous">Enable SPI programming *</label><br>
+			<input type="checkbox" id="WDTON" value="-64" onclick="calc();"> <label for="WDTON">Watchdog Timer always on</label><br>
+			<input type="checkbox" id="S85X5C" value="-128" onclick="calc();"> <label for="S85X5C">Enable AT90S4414/AT90S8515/AT90S8535 compatibility mode</label>
+			<input type="hidden" id="high8" value="+249">
+		</td>
+		<td>
+			<h2>High</h2>
+			<span id="highval">&nbsp;</span>
+		</td>
+	</tr>
+</table>
+</form>
+
+<p>* = <span onclick="setDefault();">default</span></p>
+
+</body>
+</html>

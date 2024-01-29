@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<!-- AVR Fuse Calculator, (C) Arne Rossius, http://www.ebps.de.vu/ -->
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<title>ATtiny12 Fuse Calculator</title>
+<link rel="stylesheet" type="text/css" href="avrfuse.css">
+<script type="text/javascript" src="avrfuse.js"></script>
+</head>
+
+<body onload="calc();">
+<h1>ATtiny12 Fuse Calculator</h1>
+
+<form action="">
+<table border="1">
+	<tr id="low">
+		<td>
+			Clock Source and Start-up Time: <select id="CKSEL" size="1" onClick="calc();" onChange="calc();">
+				<optgroup label="External Clock Source">
+					<option value="+1">BOD enabled</option>
+					<option value="+0">fast rising power</option>
+				</optgroup>
+				<optgroup label="Ceramic Oscillator">
+					<option value="+15">BOD enabled</option>
+					<option value="+14">fast rising power</option>
+					<option value="+13">slowly rising power</option>
+				</optgroup>
+				<optgroup label="Low-Frequency Crystal Oscillator">
+					<option value="+9">slowly rising power</option>
+					<option value="+8">stable frequency at start-up</option>
+				</optgroup>
+				<optgroup label="Crystal Oscillator">
+					<option value="+12">BOD enabled</option>
+					<option value="+11">fast rising power</option>
+					<option value="+10">slowly rising power</option>
+				</optgroup>
+				<optgroup label="External R/C Oscillator">
+					<option value="+7">BOD enabled</option>
+					<option value="+6">fast rising power</option>
+					<option value="+5">slowly rising power</option>
+				</optgroup>
+				<optgroup label="Internal R/C Oscillator">
+					<option value="+4">BOD enabled</option>
+					<option value="+3">fast rising power</option>
+					<option value="+2" selected class="default">slowly rising power *</option>
+				</optgroup>
+			</select><br>
+			<input type="checkbox" id="RSTDISBL" value="-16" onClick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">Disable external Reset</label><br>
+			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onClick="calc();"> <label for="SPIEN" class="default dangerous">Enable SPI programming *</label><br>
+			<input type="checkbox" id="BODEN" value="-64" onClick="calc();"> <label for="BODEN">Enable Brown-out Detector</label><br>
+			<input type="checkbox" id="BODLEVEL" value="-128" checked class="default" onClick="calc();"> <label for="BODLEVEL" class="default">High Brown-out Level (2.7&thinsp;V instead of 1.8&thinsp;V) *</label>
+			<input type="hidden" value="+240">
+		</td>
+		<td>
+			<h2>Low</h2>
+			<span id="lowval">&nbsp;</span>
+		</td>
+	</tr>
+</table>
+</form>
+
+<p>* = <span onClick="setDefault();">default</span></p>
+
+</body>
+</html>

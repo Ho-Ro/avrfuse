@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<!-- AVR Fuse Calculator, (C) Arne Rossius, http://www.ebps.de.vu/ -->
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<title>ATtiny13 Fuse Calculator</title>
+<link rel="stylesheet" type="text/css" href="avrfuse.css">
+<script type="text/javascript" src="avrfuse.js"></script>
+</head>
+
+<body onload="calc();">
+<h1>ATtiny13 Fuse Calculator</h1>
+
+<form action="">
+<table border="1">
+	<tr id="low">
+		<td>
+			Clock Source: <select id="CKSEL" size="1" onClick="calc();" onChange="calc();">
+				<option value="+0">External Clock Source</option>
+				<option value="+3">Internal 128 kHz (Watchdog)</option>
+				<option value="+1">Internal R/C 4.8 MHz</option>
+				<option value="+2" selected class="default">Internal R/C 9.6 MHz *</option>
+			</select><br>
+			Start-up Time: <select id="SUT" size="1" onClick="calc();" onChange="calc();">
+				<option value="+0">BOD enabled</option>
+				<option value="+4">fast rising power</option>
+				<option value="+8" selected class="default">slowly rising power *</option>
+			</select><br>
+			<input type="checkbox" id="CKDIV" value="-16" checked class="default" onClick="calc();"> <label for="CKDIV" class="default">Divide clock by 8 *</label><br>
+			<input type="checkbox" id="WDTON" value="-32" onClick="calc();"> <label for="WDTON">Watchdog Timer always on</label><br>
+			<input type="checkbox" id="EESAVE" value="-64" onClick="calc();"> <label for="EESAVE">Preserve EEPROM through Chip Erase</label><br>
+			<input type="checkbox" id="SPIEN" value="-128" checked class="default dangerous" onClick="calc();"> <label for="SPIEN" class="default dangerous">Enable SPI programming *</label>
+			<input type="hidden" value="+240">
+		</td>
+		<td>
+			<h2>Low</h2>
+			<span id="lowval">&nbsp;</span>
+		</td>
+	</tr>
+	<tr id="high">
+		<td>
+			<input type="checkbox" id="RSTDISBL" value="-1" onClick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">Disable external Reset</label><br>
+			Brown-out Detection: <select id="high2" size="1" onClick="calc();" onChange="calc();">
+				<option value="+6" selected class="default">disabled *</option>
+				<option value="+4">1.8 V</option>
+				<option value="+2">2.7 V</option>
+				<option value="+0">4.3 V</option>
+			</select><br>
+			<input type="checkbox" id="DWEN" value="-8" onClick="calc();" class="dangerous"> <label for="DWEN" class="dangerous">Enable debugWIRE</label><br>
+			<input type="checkbox" id="SELFPROG" value="-16" onClick="calc();"> <label for="SELFPROG">Enable Self Programming</label>
+			<input type="hidden" value="+249">
+		</td>
+		<td>
+			<h2>High</h2>
+			<span id="highval">&nbsp;</span>
+		</td>
+	</tr>
+</table>
+</form>
+
+<p>* = <span onClick="setDefault();">default</span></p>
+
+</body>
+</html>
