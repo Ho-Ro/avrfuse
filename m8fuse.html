@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">
 <!-- AVR Fuse Calculator, (C) Arne Rossius, http://www.ebps.de.vu/ -->
+<!-- This work is released under the terms of the GNU General Public License, version 3. -->
 <html>
 
 <head>
@@ -17,27 +18,8 @@
 <table border="1">
 	<tr id="low">
 		<td>
-			CKSEL <select id="CKSEL" size="1" onclick="calc();" onchange="calc();">
-				<option value="+0">External Clock Source</option>
-				<optgroup label="External R/C Oscillator:">
-					<option value="+5">0.1-0.9 MHz</option>
-					<option value="+6">0.9-3 MHz</option>
-					<option value="+7">3-8 MHz</option>
-					<option value="+8">8-12 MHz</option>
-				</optgroup>
-				<optgroup label="External Crystal:">
-					<option value="+9">~ 32 kHz</option>
-					<option value="+10">0.4-0.9 MHz (Ceramic)</option>
-					<option value="+12">0.9-3 MHz</option>
-					<option value="+14">3-16 MHz</option>
-				</optgroup>
-				<optgroup label="Internal R/C Oscillator:">
-					<option value="+1" selected class="default">1 MHz *</option>
-					<option value="+2">2 MHz</option>
-					<option value="+3">4 MHz</option>
-					<option value="+4">8 MHz</option>
-				</optgroup>
-			</select><br>
+			<input type="checkbox" id="BODLEVEL" value="-128" onclick="calc();"> <label for="BODLEVEL">BODLEVEL - High Brown-out Level (4V instead of 2.7V)</label><br>
+			<input type="checkbox" id="BODEN" value="-64" onclick="calc();"> <label for="BODEN">BODEN - Enable Brown-out Detector</label><br>
 			SUT <select id="SUT" size="1" onclick="calc();" onchange="calc();">
 				<optgroup label="External R/C Oscillator">
 					<option value="+0">18 CK (BOD)</option>
@@ -68,8 +50,27 @@
 					<option value="+32" selected class="default">6 CK + 65 ms (slow) *</option>
 				</optgroup>
 			</select><br>
-			<input type="checkbox" id="BODEN" value="-64" onclick="calc();"> <label for="BODEN">BODEN - Enable Brown-out Detector</label><br>
-			<input type="checkbox" id="BODLEVEL" value="-128" onclick="calc();"> <label for="BODLEVEL">BODLEVEL - High Brown-out Level (4V instead of 2.7V)</label>
+			CKSEL <select id="CKSEL" size="1" onclick="calc();" onchange="calc();">
+				<option value="+0">External Clock Source</option>
+				<optgroup label="External R/C Oscillator:">
+					<option value="+5">Ext. R/C 0.1-0.9 MHz</option>
+					<option value="+6">Ext. R/C 0.9-3 MHz</option>
+					<option value="+7">Ext. R/C 3-8 MHz</option>
+					<option value="+8">Ext. R/C 8-12 MHz</option>
+				</optgroup>
+				<optgroup label="External Crystal:">
+					<option value="+9">XTAL ~ 32 kHz</option>
+					<option value="+10">Ceramic 0.4-0.9 MHz</option>
+					<option value="+12">XTAL 0.9-3 MHz</option>
+					<option value="+14">XTAL 3-16 MHz</option>
+				</optgroup>
+				<optgroup label="Internal R/C Oscillator:">
+					<option value="+1" selected class="default">Int. R/C 1 MHz *</option>
+					<option value="+2">Int. R/C 2 MHz</option>
+					<option value="+3">Int. R/C 4 MHz</option>
+					<option value="+4">Int. R/C 8 MHz</option>
+				</optgroup>
+			</select><br>
 			<input type="hidden" value="+192">
 		</td>
 		<td>
@@ -79,20 +80,20 @@
 	</tr>
 	<tr id="high">
 		<td>
-			<input type="checkbox" id="BOOTRST" value="-1" onclick="calc();"> <label for="BOOTRST">BOOTRST - Select Reset Vector</label><br>
+			<input type="checkbox" id="RSTDISBL" value="-128" onclick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">RSTDISBL - External Reset Disable</label><br>
+			<input type="checkbox" id="WDTON" value="-64" onclick="calc();"> <label for="WDTON">WDTON - Watchdog Timer Always On</label><br>
+			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc();"> <label for="SPIEN" class="default dangerous">SPIEN - Enable SPI programming *</label><br>
+			<input type="checkbox" id="CKOPT" value="-16" onclick="calc();"> <label for="CKOPT">Ext. Clock/RC Osc./Low-freq. Crystal: enable internal Capacitors (36 pF)<br>
+			Internal R/C Osc.: leave unchecked!<br>
+			External Crystal: enable full swing (neccessary for >8 MHz)</label><br>
+			<input type="checkbox" id="EESAVE" value="-8" onclick="calc();"> <label for="EESAVE">EESAVE - Preserve EEPROM through Chip Erase</label><br>
 			BOOTSZ <select id="BOOTSZ" size="1" onclick="calc();" onchange="calc();">
 				<option value="+0" selected class="default">1024 words / 2048 bytes *</option>
 				<option value="+2">512 words / 1024 bytes</option>
 				<option value="+4">256 words / 512 bytes</option>
 				<option value="+6">128 words / 256 bytes</option>
 			</select><br>
-			<input type="checkbox" id="EESAVE" value="-8" onclick="calc();"> <label for="EESAVE">EESAVE - Preserve EEPROM through Chip Erase</label><br>
-			<input type="checkbox" id="CKOPT" value="-16" onclick="calc();"> <label for="CKOPT">Ext. Clock/RC Osc./Low-freq. Crystal: enable internal Capacitors (36 pF)<br>
-			Internal R/C Osc.: leave unchecked!<br>
-			External Crystal: enable full swing (neccessary for >8 MHz)</label><br>
-			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc();"> <label for="SPIEN" class="default dangerous">SPIEN - Enable SPI programming *</label><br>
-			<input type="checkbox" id="WDTON" value="-64" onclick="calc();"> <label for="WDTON">WDTON - Watchdog Timer Always On</label><br>
-			<input type="checkbox" id="RSTDISBL" value="-128" onclick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">RSTDISBL - External Reset Disable</label>
+			<input type="checkbox" id="BOOTRST" value="-1" onclick="calc();"> <label for="BOOTRST">BOOTRST - Select Reset Vector</label><br>
 			<input type="hidden" id="high8" value="+249">
 		</td>
 		<td>

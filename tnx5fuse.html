@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">
 <!-- AVR Fuse Calculator, (C) Arne Rossius, http://www.ebps.de.vu/ -->
+<!-- This work is released under the terms of the GNU General Public License, version 3. -->
 <html>
 
 <head>
@@ -17,7 +18,7 @@
 <table border="1">
 	<tr id="low">
 		<td>
-			<input type="checkbox" id="CKDIV" value="-128" checked class="default" onClick="calc();"> <label for="CKDIV" class="default">CKDIV - Divide clock by 8 *</label><br>
+			<input type="checkbox" id="CKDIV8" value="-128" checked class="default" onClick="calc();"> <label for="CKDIV8" class="default">CKDIV8 - Divide clock by 8 *</label><br>
 			<input type="checkbox" id="CKOUT" value="-64" onClick="calc();"> <label for="CKOUT">CKOUT - Clock Output on PB2</label><br>
 			SUT <select id="SUT" size="1" onClick="calc();" onChange="calc();">
 				<optgroup label="PLL Clock">
@@ -58,10 +59,10 @@
 				<option value="+1">PLL Clock (16 MHz)</option>
 				<optgroup label="External Crystal:">
 					<option value="+6">XTAL ~ 32 kHz</option>
-					<option value="+8">XTAL 0.4-0.9 MHz (Ceramic)</option>
+					<option value="+8">Ceramic 0.4-0.9 MHz</option>
 					<option value="+10">XTAL 0.9-3 MHz</option>
 					<option value="+12">XTAL 3-8 MHz</option>
-					<option value="+14">XTAL >8 MHz</option>
+					<option value="+14">XTAL &gt;8 MHz</option>
 				</optgroup>
 				<optgroup label="Internal R/C Oscillator:">
 					<option value="+4">Int. R/C 128 kHz</option>

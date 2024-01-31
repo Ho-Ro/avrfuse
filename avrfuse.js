@@ -1,4 +1,5 @@
 // AVR Fuse Calculator, (C) Arne Rossius, http://www.ebps.de.vu/
+// This work is released under the terms of the GNU General Public License, version 3.
 
 function setDefault() {
 	document.forms[0].reset();

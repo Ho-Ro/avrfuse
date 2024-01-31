@@ -5,6 +5,7 @@ Fuse calculating tool forked from [Arne's project](https://elektronik-kompendium
 
 ```
 AVR Fuse Calculator, (C) Arne Rossius, http://www.ebps.de.vu/
+This work is released under the terms of the GNU General Public License, version 3.
 ```
 ## Usage
 Open `avrfuse.html` with your browser, select a device from the list on the left side and set the fuses according to your need.

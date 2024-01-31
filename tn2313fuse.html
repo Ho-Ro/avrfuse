@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">
 <!-- AVR Fuse Calculator, (C) Arne Rossius, http://www.ebps.de.vu/ -->
+<!-- This work is released under the terms of the GNU General Public License, version 3. -->
 <html>
 
 <head>
@@ -17,21 +18,9 @@
 <table border="1">
 	<tr id="low">
 		<td>
-			Clock Source: <select id="CKSEL" size="1" onClick="calc();" onChange="calc();">
-				<option value="+0">External Clock Source</option>
-				<optgroup label="External Crystal:">
-					<option value="+8">0.4-0.9 MHz (Ceramic)</option>
-					<option value="+10">0.9-3 MHz</option>
-					<option value="+12">3-8 MHz</option>
-					<option value="+14">8-20 MHz</option>
-				</optgroup>
-				<optgroup label="Internal R/C Oscillator:">
-					<option value="+6">128 kHz (Watchdog)</option>
-					<option value="+2">4 MHz</option>
-					<option value="+4" selected class="default">8 MHz *</option>
-				</optgroup>
-			</select><br>
-			Start-up Time: <select id="SUT" size="1" onClick="calc();" onChange="calc();">
+			<input type="checkbox" id="CKDIV8" value="-128" checked class="default" onClick="calc();"> <label for="CKDIV8" class="default">CKDIV8 - Divide clock by 8 *</label><br>
+			<input type="checkbox" id="CKOUT" value="-64" onClick="calc();"> <label for="CKOUT">CKOUT - Output clock on CKOUT (PB2)</label><br>
+			SUT <select id="SUT" size="1" onClick="calc();" onChange="calc();">
 				<optgroup label="Ceramic Oscillator:">
 					<option value="+0">fast rising power (not close to max. freq.)</option>
 					<option value="+16">slowly rising power (not close to max. freq.)</option>
@@ -50,8 +39,20 @@
 					<option value="+32" selected class="default">slowly rising power *</option>
 				</optgroup>
 			</select><br>
-			<input type="checkbox" id="CKOUT" value="-64" onClick="calc();"> <label for="CKOUT">Output clock on CKOUT (PB2)</label><br>
-			<input type="checkbox" id="CKDIV" value="-128" checked class="default" onClick="calc();"> <label for="CKDIV" class="default">Divide clock by 8 *</label>
+			CKSEL <select id="CKSEL" size="1" onClick="calc();" onChange="calc();">
+				<option value="+0">External Clock Source</option>
+				<optgroup label="External Crystal:">
+					<option value="+8">0.4-0.9 MHz (Ceramic)</option>
+					<option value="+10">0.9-3 MHz</option>
+					<option value="+12">3-8 MHz</option>
+					<option value="+14">8-20 MHz</option>
+				</optgroup>
+				<optgroup label="Internal R/C Oscillator:">
+					<option value="+6">128 kHz (Watchdog)</option>
+					<option value="+2">4 MHz</option>
+					<option value="+4" selected class="default">8 MHz *</option>
+				</optgroup>
+			</select><br>
 			<input type="hidden" value="+192">
 		</td>
 		<td>
@@ -61,17 +62,17 @@
 	</tr>
 	<tr id="high">
 		<td>
-			<input type="checkbox" id="RSTDISBL" value="-1" onClick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">Disable external Reset</label><br>
-			Brown-out Detection: <select id="BODLEVEL" size="1" onClick="calc();" onChange="calc();">
+			<input type="checkbox" id="DWEN" value="-128" onClick="calc();" class="dangerous"> <label for="DWEN" class="dangerous">Enable debugWIRE</label><br>
+			<input type="checkbox" id="EESAVE" value="-64" onClick="calc();"> <label for="EESAVE">Preserve EEPROM through Chip Erase</label><br>
+			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onClick="calc();"> <label for="SPIEN" class="default dangerous">Enable SPI programming *</label><br>
+			<input type="checkbox" id="WDTON" value="-16" onClick="calc();"> <label for="WDTON">Watchdog Timer always on</label><br>
+			BODLEVEL <select id="BODLEVEL" size="1" onClick="calc();" onChange="calc();">
 				<option value="+14" selected class="default">disabled *</option>
 				<option value="+12">1.8 V</option>
 				<option value="+10">2.7 V</option>
 				<option value="+8">4.3 V</option>
 			</select><br>
-			<input type="checkbox" id="WDTON" value="-16" onClick="calc();"> <label for="WDTON">Watchdog Timer always on</label><br>
-			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onClick="calc();"> <label for="SPIEN" class="default dangerous">Enable SPI programming *</label><br>
-			<input type="checkbox" id="EESAVE" value="-64" onClick="calc();"> <label for="EESAVE">Preserve EEPROM through Chip Erase</label><br>
-			<input type="checkbox" id="DWEN" value="-128" onClick="calc();" class="dangerous"> <label for="DWEN" class="dangerous">Enable debugWIRE</label>
+			<input type="checkbox" id="RSTDISBL" value="-1" onClick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">Disable external Reset</label><br>
 			<input type="hidden" value="+241">
 		</td>
 		<td>
