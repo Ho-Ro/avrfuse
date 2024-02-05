@@ -6,21 +6,22 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
-<title>ATtiny24/44/84 Fuse Calculator</title>
+<title>ATmega48 Fuse Calculator</title>
 <link rel="stylesheet" type="text/css" href="avrfuse.css">
 <script type="text/javascript" src="avrfuse.js"></script>
+
 </head>
 
 <body onload="calc();">
-<h1>ATtiny24/44/84 Fuse Calculator</h1>
+<h1>ATmega48 Fuse Calculator</h1>
 
 <form action="">
 <table border="1">
 	<tr id="low">
 		<td>
-			<input type="checkbox" id="CKDIV8" value="-128" checked class="default" onClick="calc();"> <label for="CKDIV8" class="default">CKDIV8 - Divide clock by 8 *</label><br>
-			<input type="checkbox" id="CKOUT" value="-64" onClick="calc();"> <label for="CKOUT">CKOUT - Output clock on CKOUT (PB2)</label><br>
-			SUT <select id="SUT" size="1" onClick="calc();" onChange="calc();">
+			<input type="checkbox" id="CKDIV8" value="-128" checked class="default" onclick="calc();"> <label for="CKDIV8" class="default">CKDIV8 - Divide Clock by 8 *</label><br>
+			<input type="checkbox" id="CKOUT" value="-64" onclick="calc();"> <label for="CKOUT">CKOUT - Output Clock on PB0</label><br>
+			SUT <select id="SUT" size="1" onclick="calc();" onchange="calc();">
 				<optgroup label="Ceramic Oscillator:">
 					<option value="+0">fast rising power (not close to max. freq.)</option>
 					<option value="+16">slowly rising power (not close to max. freq.)</option>
@@ -29,32 +30,37 @@
 					<option value="+1">slowly rising power (stable freq. at start-up)</option>
 				</optgroup>
 				<optgroup label="Low-Freq. Crystal Oscillator:">
-					<option value="+0">fast rising power or BOD enabled</option>
-					<option value="+16">slowly rising power</option>
-					<option value="+32">stable frequency at start-up</option>
+					<option value="+0">BOD enabled (freq. not stable at start-up)</option>
+					<option value="+16">fast rising power (freq. not stable at start-up)</option>
+					<option value="+32">slowly rising power (freq. not stable at start-up)</option>
+					<option value="+1">BOD enabled</option>
+					<option value="+17">fast rising power</option>
+					<option value="+33">slowly rising power</option>
 				</optgroup>
 				<optgroup label="Crystal Oscillator:">
 					<option value="+17">BOD enabled</option>
 					<option value="+33">fast rising power</option>
 					<option value="+49">slowly rising power</option>
 				</optgroup>
-				<optgroup label="Internal/External Oscillator:">
+				<optgroup label="Internal R/C Oscillator or External Clock Source">
 					<option value="+0">BOD enabled</option>
 					<option value="+16">fast rising power</option>
 					<option value="+32" selected class="default">slowly rising power *</option>
+					<option value="+48">fast rising power or BOD enabled (not close to max. freq.)</option>
 				</optgroup>
 			</select><br>
-			CKSEL <select id="CKSEL" size="1" onClick="calc();" onChange="calc();">
+			CKSEL <select id="CKSEL" size="1" onclick="calc();" onchange="calc();">
 				<option value="+0">External Clock Source</option>
 				<optgroup label="External Crystal:">
-					<option value="+6">~ 32 kHz</option>
+					<option value="+4">~ 32 kHz</option>
 					<option value="+8">0.4-0.9 MHz (Ceramic)</option>
 					<option value="+10">0.9-3 MHz</option>
 					<option value="+12">3-8 MHz</option>
-					<option value="+14">8-20 MHz</option>
+					<option value="+14">8-16 MHz</option>
+					<option value="+6">0.4-20 MHz (Full Swing)</option>
 				</optgroup>
 				<optgroup label="Internal R/C Oscillator:">
-					<option value="+4">128 kHz (Watchdog)</option>
+					<option value="+3">128 kHz</option>
 					<option value="+2" selected class="default">8 MHz *</option>
 				</optgroup>
 			</select><br>
@@ -67,18 +73,14 @@
 	</tr>
 	<tr id="high">
 		<td>
-			<input type="checkbox" id="RSTDISBL" value="-128" onClick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">RSTDISBL - External Reset Disable</label><br>
-			<input type="checkbox" id="DWEN" value="-64" onClick="calc();" class="dangerous"> <label for="DWEN" class="dangerous">DWEN - debugWIRE Enable</label><br>
-			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onClick="calc();"> <label for="SPIEN" class="default dangerous">SPIEN - SPI Programming Enable (not accessible via SPI) *</label><br>
-			<input type="checkbox" id="WDTON" value="-16" onClick="calc();"> <label for="WDTON">WDTON - Watchdog Timer Always n</label><br>
-			<input type="checkbox" id="EESAVE" value="-8" onClick="calc();"> <label for="EESAVE">EESAVE - Preserve EEPROM through Chip Erase</label><br>
-			Brown-out Detection: <select id="BODLEVEL" size="1" onClick="calc();" onChange="calc();">
-				<option value="+7" selected class="default">disabled *</option>
+			<input type="checkbox" id="RSTDISBL" value="-128" onclick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">RSTDISBL - External Reset Disable</label><br>
+			<input type="checkbox" id="DWEN" value="-64" onclick="calc();" class="dangerous"> <label for="DWEN" class="dangerous">DWEN - debugWIRE Enable</label><br>
+			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc();"> <label for="SPIEN" class="default dangerous">SPIEN - SPI Programming Enable (not accessible via SPI) *</label><br>
+			<input type="checkbox" id="WDTON" value="-16" onclick="calc();"> <label for="WDTON">WDTON - Timer Always On</label><br>
+			<input type="checkbox" id="EESAVE" value="-8" onclick="calc();"> <label for="EESAVE">EESAVE - Preserve EEPROM through Chip Erase</label><br>
+			BOD Level: <select id="BODLEVEL" size="1" onclick="calc();" onchange="calc();">
+				<option value="+7" selected class="default">BOD disabled *</option>
 				<option value="+6">1.8 V</option>
-				<option value="+1">1.9 V</option>
-				<option value="+0">2.0 V</option>
-				<option value="+2">2.2 V</option>
-				<option value="+3">2.3 V</option>
 				<option value="+5">2.7 V</option>
 				<option value="+4">4.3 V</option>
 			</select><br>
@@ -91,7 +93,7 @@
 	</tr>
 	<tr id="ext">
 		<td>
-			<input type="checkbox" id="SELFPRGEN" value="-1" onClick="calc();"> <label for="SELFPRGEN">Enable Self Programming</label>
+			<input type="checkbox" id="SELFPRGEN" value="-1" onclick="calc();"> <label for="SELFPRGEN">SELFPRGEN - Self Programming Enable</label><br>
 			<input type="hidden" value="+255">
 		</td>
 		<td>

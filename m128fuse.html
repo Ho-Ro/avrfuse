@@ -80,18 +80,18 @@
 	</tr>
 	<tr id="high">
 		<td>
-			<input type="checkbox" id="BOOTRST" value="-1" onclick="calc();"> <label for="BOOTRST">Set Reset Vector to Boot Block</label><br>
+			<input type="checkbox" id="BOOTRST" value="-1" onclick="calc();"> <label for="BOOTRST">BOOTRST - Select Reset Vector</label><br>
 			Boot Block Size: <select id="BOOTSZ" size="1" onclick="calc();" onchange="calc();">
 				<option value="+0" selected class="default">4096 words / 8192 bytes *</option>
 				<option value="+2">2048 words / 4096 bytes</option>
 				<option value="+4">1024 words / 2048 bytes</option>
 				<option value="+6">512 words / 1024 bytes</option>
 			</select><br>
-			<input type="checkbox" id="EESAVE" value="-8" onclick="calc();"> <label for="EESAVE">Preserve EEPROM through Chip Erase</label><br>
+			<input type="checkbox" id="EESAVE" value="-8" onclick="calc();"> <label for="EESAVE">EESAVE - Preserve EEPROM through Chip Erase</label><br>
 			<input type="checkbox" id="CKOPT" value="-16" onclick="calc();"> <label for="CKOPT">Ext. Clock/RC Osc./Low-freq. Crystal: enable internal Capacitors (36 pF)<br>
 			Internal R/C Osc.: leave unchecked!<br>
 			External Crystal: enable full swing (neccessary for >8 MHz)</label><br>
-			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc();"> <label for="SPIEN" class="default dangerous">Enable SPI programming *</label><br>
+			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc();"> <label for="SPIEN" class="default dangerous">SPIEN - SPI Programming Enable (not accessible via SPI) *</label><br>
 			<input type="checkbox" id="JTAGEN" value="-64" onclick="calc();" checked class="default"> <label for="JTAGEN" class="default">Enable JTAG interface (PF4-7)</label><br>
 			<input type="checkbox" id="OCDEN" value="-128" onclick="calc();"> <label for="OCDEN">Enable OCD</label>
 			<input type="hidden" value="+249">
@@ -103,7 +103,7 @@
 	</tr>
 	<tr id="ext">
 		<td>
-			<input type="checkbox" id="WDTON" value="-1" onclick="calc();"> <label for="WDTON">Watchdog Timer always on</label><br>
+			<input type="checkbox" id="WDTON" value="-1" onclick="calc();"> <label for="WDTON">WDTON - Watchdog Timer Always On</label><br>
 			<input type="checkbox" id="M103C" value="-2" onclick="calc();" checked class="default"> <label for="M103C" class="default">Enable ATmega103 compatibility mode</label>
 			<input type="hidden" value="+255">
 		</td>

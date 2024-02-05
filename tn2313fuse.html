@@ -62,17 +62,17 @@
 	</tr>
 	<tr id="high">
 		<td>
-			<input type="checkbox" id="DWEN" value="-128" onClick="calc();" class="dangerous"> <label for="DWEN" class="dangerous">Enable debugWIRE</label><br>
-			<input type="checkbox" id="EESAVE" value="-64" onClick="calc();"> <label for="EESAVE">Preserve EEPROM through Chip Erase</label><br>
-			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onClick="calc();"> <label for="SPIEN" class="default dangerous">Enable SPI programming *</label><br>
-			<input type="checkbox" id="WDTON" value="-16" onClick="calc();"> <label for="WDTON">Watchdog Timer always on</label><br>
+			<input type="checkbox" id="DWEN" value="-128" onClick="calc();" class="dangerous"> <label for="DWEN" class="dangerous">DWEN - debugWIRE Enable</label><br>
+			<input type="checkbox" id="EESAVE" value="-64" onClick="calc();"> <label for="EESAVE">EESAVE - Preserve EEPROM through Chip Erase</label><br>
+			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onClick="calc();"> <label for="SPIEN" class="default dangerous">SPIEN - SPI Programming Enable (not accessible via SPI) *</label><br>
+			<input type="checkbox" id="WDTON" value="-16" onClick="calc();"> <label for="WDTON">WDTON - Watchdog Timer Always On</label><br>
 			BODLEVEL <select id="BODLEVEL" size="1" onClick="calc();" onChange="calc();">
 				<option value="+14" selected class="default">disabled *</option>
 				<option value="+12">1.8 V</option>
 				<option value="+10">2.7 V</option>
 				<option value="+8">4.3 V</option>
 			</select><br>
-			<input type="checkbox" id="RSTDISBL" value="-1" onClick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">Disable external Reset</label><br>
+			<input type="checkbox" id="RSTDISBL" value="-1" onClick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">RSTDISBL - External Reset Disable</label><br>
 			<input type="hidden" value="+241">
 		</td>
 		<td>

@@ -6,21 +6,14 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
-<title>ATmega48/88/168 Fuse Calculator</title>
+<title>ATmega88/168 Fuse Calculator</title>
 <link rel="stylesheet" type="text/css" href="avrfuse.css">
 <script type="text/javascript" src="avrfuse.js"></script>
 
-<script type="text/javascript">
-function setDefault48() {
-	document.forms[0].reset();
-	document.getElementById('BOOTSZ')[4].selected = true;
-	calc();
-}
-</script>
 </head>
 
 <body onload="calc();">
-<h1>ATmega48/88/168 Fuse Calculator</h1>
+<h1>ATmega88/168 Fuse Calculator</h1>
 
 <form action="">
 <table border="1">
@@ -82,7 +75,7 @@ function setDefault48() {
 		<td>
 			<input type="checkbox" id="RSTDISBL" value="-128" onclick="calc();" class="dangerous"> <label for="RSTDISBL" class="dangerous">RSTDISBL - External Reset Disable</label><br>
 			<input type="checkbox" id="DWEN" value="-64" onclick="calc();" class="dangerous"> <label for="DWEN" class="dangerous">DWEN - debugWIRE Enable</label><br>
-			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc();"> <label for="SPIEN" class="default dangerous">SPIEN - SPI Programming Enable *</label><br>
+			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc();"> <label for="SPIEN" class="default dangerous">SPIEN - SPI Programming Enable (not accessible via SPI) *</label><br>
 			<input type="checkbox" id="WDTON" value="-16" onclick="calc();"> <label for="WDTON">WDTON - Timer Always On</label><br>
 			<input type="checkbox" id="EESAVE" value="-8" onclick="calc();"> <label for="EESAVE">EESAVE - Preserve EEPROM through Chip Erase</label><br>
 			BOD Level: <select id="BODLEVEL" size="1" onclick="calc();" onchange="calc();">
@@ -100,14 +93,12 @@ function setDefault48() {
 	</tr>
 	<tr id="ext">
 		<td>
-			<input type="checkbox" id="SELFPRGEN" value="-1" onclick="calc();"> <label for="SELFPRGEN">ATmega48: Self Programming Enable,<br>
-			ATmega88/168: Move Reset Vector to Boot Loader</label><br>
-			ATmega88/168: Boot Block Size: <select id="BOOTSZ" size="1" onclick="calc();" onchange="calc();">
+			<input type="checkbox" id="BOOTRST" value="-1" onclick="calc();"> <label for="BOOTRST">BOOTRST - Select Reset Vector</label><br>
+			BOOTSZ <select id="BOOTSZ" size="1" onclick="calc();" onchange="calc();">
 				<option value="+0" selected class="default">1024 words / 2048 bytes *</option>
 				<option value="+2">512 words / 1024 bytes</option>
 				<option value="+4">256 words / 512 bytes</option>
 				<option value="+6">128 words / 256 bytes</option>
-				<option value="+6">Select this for ATmega48 *</option>
 			</select><br>
 			<input type="hidden" value="+249">
 		</td>
@@ -119,8 +110,7 @@ function setDefault48() {
 </table>
 </form>
 
-<p>* = default<br>
-set default: <span onclick="setDefault48();">Mega48</span>, <span onclick="setDefault();">Mega88/168</span></p>
+<p>* = <span onClick="setDefault();">default</span></p>
 
 avrdude fuse options:
 <pre><span id="lfuse"></span> <span id="hfuse"></span> <span id="efuse"></span></pre>

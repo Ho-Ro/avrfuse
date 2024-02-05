@@ -14,7 +14,8 @@ The resulting [avrdude](https://github.com/avrdudes/avrdude) fuse options are di
 ## Changes
 I have been using this tool for a long time and have made some small changes:
 
-- Added ATmega328
+- Added ATmega328, ATmega640/1280/2560
+- Split ATmega48/88/168 -> ATmega48 and ATmega88/168
 - Naming of the components changed
-- Bit order is the same as in the datasheets
+- Bit order is the same as in the datasheets for most devices
 - Show avrdude fuse options

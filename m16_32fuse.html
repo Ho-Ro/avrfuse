@@ -75,18 +75,18 @@
 	</tr>
 	<tr id="high">
 		<td>
-			<input type="checkbox" id="BOOTRST" value="-1" onclick="calc()"> <label for="BOOTRST">Set Reset Vector to Boot Block</label><br>
+			<input type="checkbox" id="BOOTRST" value="-1" onclick="calc()"> <label for="BOOTRST">BOOTRST - Select Reset Vector</label><br>
 			Boot Block Size: <select id="BOOTSZ" size="1" onclick="calc()" onchange="calc()">
 				<option value="+0" selected class="default">1024 words / 2048 bytes *</option>
 				<option value="+2">512 words / 1024 bytes</option>
 				<option value="+4">256 words / 512 bytes</option>
 				<option value="+6">128 words / 256 bytes</option>
 			</select><br>
-			<input type="checkbox" id="EESAVE" value="-8" onclick="calc()"> <label for="EESAVE">Preserve EEPROM through Chip Erase</label><br>
+			<input type="checkbox" id="EESAVE" value="-8" onclick="calc()"> <label for="EESAVE">EESAVE - Preserve EEPROM through Chip Erase</label><br>
 			<input type="checkbox" id="CKOPT" value="-16" onclick="calc()"> <label for="CKOPT">Ext. Clock, Ext. R/C Osc. or LF Crystal: enable internal Capacitors (36 pF)<br>
 			Internal R/C Osc.: leave unchecked!<br>
 			Crystal/Ceramic: enable full swing (neccessary for >8 MHz)</label><br>
-			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc()"> <label for="SPIEN" class="default dangerous">Enable SPI programming *</label><br>
+			<input type="checkbox" id="SPIEN" value="-32" checked class="default dangerous" onclick="calc()"> <label for="SPIEN" class="default dangerous">SPIEN - SPI Programming Enable (not accessible via SPI) *</label><br>
 			<input type="checkbox" id="JTAGEN" value="-64" checked class="default" onclick="calc()"> <label for="JTAGEN" class="default">Enable JTAG *</label><br>
 			<input type="checkbox" id="OCDEN" value="-128" onclick="calc()"> <label for="OCDEN">Enable On-chip Debug System</label>
 			<input type="hidden" value="+249">
